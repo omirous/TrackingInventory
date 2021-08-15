@@ -7,3 +7,4 @@ build
 inventory-app/.classpath
 inventory-app/.project
 inventory-app/.settings/
+inventory-app/bin/
