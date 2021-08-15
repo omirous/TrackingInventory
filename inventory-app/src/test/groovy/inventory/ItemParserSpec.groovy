@@ -43,9 +43,19 @@ class ItemParserSpec extends Specification {
 
 		then: 'an InvalidInput expection is thrown'
 		def e = thrown(InvalidInput)
-		e.message == "Expected a line with with 2 delimeters but got none instead."
-
+		e.message == "Expected a line with 2 delimeters but got none instead."
 	}
 
+	def "parsing a line with one delimeter" () {
+		given: 'a line with one delimeter'
+		String input = "name;sn"
+
+		when: 'parsing that input to an Item'
+		parser.parseLine(input)
+
+		then: 'an InvalidInput expection is thrown'
+		def e = thrown(InvalidInput)
+		e.message == "Expected a line with 2 delimeters but got 1 instead."
+	}
 
 }
