@@ -51,6 +51,22 @@ class ItemParserSpec extends Specification {
 		input 				| num 	|| message
 		"no delimeters"		| 0		|| "Expected a line with 2 delimeters but got 0 instead."
 		"name;sn"			| 1		|| "Expected a line with 2 delimeters but got 1 instead."
+		"name;sn;;"			| 3		|| "Expected a line with 2 delimeters but got 3 instead."
+		"name;sn;1;2;3"		| 4		|| "Expected a line with 2 delimeters but got 4 instead."
+	}
+
+	def "parse an item" () {
+		given: 'a csv input with 2 delimeters'
+		String line = "name;serial;1.3"
+
+		when: 'parsing that input to an Item'
+		Item item = parser.parseLine(line)
+
+		then: 'item properties are loaded properly'
+		item.name == "name"
+		item.serialNumber == "serial"
+		item.value == 1.3
+
 	}
 
 
