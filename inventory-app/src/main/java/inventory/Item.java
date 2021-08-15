@@ -5,10 +5,6 @@ public class Item {
 	private String name;
 	private String serialNumber;
 
-	public Item() {
-
-	}
-
 	/**
 	 * Create a new {@link Item} using a name and a serial number.
 	 *
