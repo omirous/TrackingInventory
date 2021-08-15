@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'TrackingInventory'
-include('app')
+include('inventory-app')
