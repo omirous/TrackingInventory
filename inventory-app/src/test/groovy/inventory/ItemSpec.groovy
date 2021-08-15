@@ -4,18 +4,15 @@ import spock.lang.Specification
 
 class ItemSpec extends Specification {
 
-	def "can create item"() {
-		expect:
-		Item item = new Item()
-	}
 
-	def "item has a name and a serial number" () {
+	def "item has a name, a serial number and a value" () {
 		given:
 		String name = "name"
 		String sn = "sn"
+		BigDecimal value = BigDecimal.ZERO
 
 		when:
-		Item item = new Item(name, sn)
+		Item item = new Item(name, sn, value)
 
 		then:
 		item.name == name
