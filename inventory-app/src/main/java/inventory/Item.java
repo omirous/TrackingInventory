@@ -19,6 +19,10 @@ public class Item {
 		this.name = name;
 		this.serialNumber = serialNumber;
 		this.value = value;
+		if (name == null) {
+			String message = "Expected an item with a name but got a null name instead.";
+			throw new InvalidItem(message);
+		}
 	}
 
 	/**
