@@ -24,6 +24,13 @@ public class Item {
 
 		if (name.isEmpty())
 			throw new InvalidItem(emptyNameMessage());
+
+		if (value == null)
+			throw new InvalidItem(nullValueMessage());
+	}
+
+	private String nullValueMessage() {
+		return "Expected an item with a value but got null value instead.";
 	}
 
 	/**
