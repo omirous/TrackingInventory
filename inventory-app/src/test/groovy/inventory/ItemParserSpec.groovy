@@ -34,5 +34,18 @@ class ItemParserSpec extends Specification {
 		e.message == "Expected a line with item data but got an empty line instead."
 	}
 
+	def "parsing a line with no delimeters" () {
+		given: 'a line with no delimeters'
+		String input = "no delimeters"
+
+		when: 'parsing that input to an Item'
+		parser.parseLine(input)
+
+		then: 'an InvalidInput expection is thrown'
+		def e = thrown(InvalidInput)
+		e.message == "Expected a line with with 2 delimeters but got none instead."
+
+	}
+
 
 }
