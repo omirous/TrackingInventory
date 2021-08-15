@@ -6,6 +6,7 @@ public class Item {
 
 	private String name;
 	private String serialNumber;
+	private BigDecimal value;
 
 	/**
 	 * Create a new {@link Item} using a name, a serial number and a value.
@@ -17,6 +18,7 @@ public class Item {
 	public Item(String name, String serialNumber, BigDecimal value) {
 		this.name = name;
 		this.serialNumber = serialNumber;
+		this.value = value;
 	}
 
 	/**
@@ -35,6 +37,15 @@ public class Item {
 	 */
 	public String getSerialNumber() {
 		return serialNumber;
+	}
+
+	/**
+	 * Retrieve the value of the {@link Item}.
+	 *
+	 * @return item's value
+	 */
+	public BigDecimal getValue() {
+		return value;
 	}
 
 }

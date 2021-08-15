@@ -17,5 +17,6 @@ class ItemSpec extends Specification {
 		then:
 		item.name == name
 		item.serialNumber == sn
+		item.value == value
 	}
 }
