@@ -1,6 +1,7 @@
 package inventory
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class ItemParserSpec extends Specification {
 
@@ -34,28 +35,23 @@ class ItemParserSpec extends Specification {
 		e.message == "Expected a line with item data but got an empty line instead."
 	}
 
-	def "parsing a line with no delimeters" () {
-		given: 'a line with no delimeters'
-		String input = "no delimeters"
+	@Unroll
+	def "parse a line with #num delimeters" () {
+		given:
+		String line = input
 
 		when: 'parsing that input to an Item'
-		parser.parseLine(input)
+		parser.parseLine(line)
 
 		then: 'an InvalidInput expection is thrown'
 		def e = thrown(InvalidInput)
-		e.message == "Expected a line with 2 delimeters but got none instead."
+		e.message == message
+
+		where:
+		input 				| num 	|| message
+		"no delimeters"		| 0		|| "Expected a line with 2 delimeters but got none instead."
+		"name;sn"			| 1		|| "Expected a line with 2 delimeters but got 1 instead."
 	}
 
-	def "parsing a line with one delimeter" () {
-		given: 'a line with one delimeter'
-		String input = "name;sn"
-
-		when: 'parsing that input to an Item'
-		parser.parseLine(input)
-
-		then: 'an InvalidInput expection is thrown'
-		def e = thrown(InvalidInput)
-		e.message == "Expected a line with 2 delimeters but got 1 instead."
-	}
 
 }
