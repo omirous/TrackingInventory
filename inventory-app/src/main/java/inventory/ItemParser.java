@@ -12,11 +12,13 @@ public class ItemParser {
 			throw new InvalidInput("Expected a line with item data but got an empty line instead.");
 
 		long numOfDelimeters = line.codePoints().filter(c -> c == DELIMETER).count();
-		if (numOfDelimeters == 0)
-			throw new InvalidInput("Expected a line with 2 delimeters but got none instead.");
 
-		if (numOfDelimeters == 1)
-			throw new InvalidInput("Expected a line with 2 delimeters but got 1 instead.");
+		if (numOfDelimeters != 2)
+			throw new InvalidInput(message(numOfDelimeters));
+	}
+
+	private String message(long numOfDelimeters) {
+		return String.format("Expected a line with 2 delimeters but got %d instead.", numOfDelimeters);
 	}
 
 

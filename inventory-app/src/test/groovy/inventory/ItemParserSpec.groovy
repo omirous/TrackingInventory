@@ -49,7 +49,7 @@ class ItemParserSpec extends Specification {
 
 		where:
 		input 				| num 	|| message
-		"no delimeters"		| 0		|| "Expected a line with 2 delimeters but got none instead."
+		"no delimeters"		| 0		|| "Expected a line with 2 delimeters but got 0 instead."
 		"name;sn"			| 1		|| "Expected a line with 2 delimeters but got 1 instead."
 	}
 
