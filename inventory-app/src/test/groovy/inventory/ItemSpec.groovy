@@ -8,4 +8,12 @@ class ItemSpec extends Specification {
 		expect:
 		Item item = new Item()
 	}
+
+	def "item has a name" () {
+		given:
+		String name = "name"
+
+		expect:
+		Item item = new Item(name)
+	}
 }
