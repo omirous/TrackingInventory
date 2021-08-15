@@ -22,6 +22,17 @@ class ItemParserSpec extends Specification {
 		e.message == "Expected a line with item data but got null instead."
 	}
 
+	def 'parse an empty line' () {
+		given: 'an empty String as input'
+		String input = ""
+
+		when: 'parsing that input to an Item'
+		parser.parseLine(input)
+
+		then: 'an InvalidInput expection is thrown'
+		def e = thrown(InvalidInput)
+		e.message == "Expected a line with item data but got an empty line instead."
+	}
 
 
 }
