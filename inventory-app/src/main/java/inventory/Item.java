@@ -22,6 +22,10 @@ public class Item {
 		if (name == null) {
 			throw new InvalidItem(nullNameMessage());
 		}
+
+		if (name.isEmpty()) {
+			throw new InvalidItem("Expected an item with a name but got an empty name instead.");
+		}
 	}
 
 	/**

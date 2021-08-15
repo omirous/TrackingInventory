@@ -32,6 +32,15 @@ class ItemSpec extends Specification {
 		e.message == "Expected an item with a name but got a null name instead."
 	}
 
+	def "item's name cannot be empty"() {
+		when: 'creating an item with an empty name'
+		new Item("", "sn", BigDecimal.ZERO)
+
+		then: 'an InvalidItem exception is thrown'
+		def e = thrown(InvalidItem)
+		e.message == "Expected an item with a name but got an empty name instead."
+	}
+
 
 
 }
