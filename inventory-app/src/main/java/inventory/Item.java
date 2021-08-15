@@ -8,7 +8,7 @@ public class Item {
 
 	}
 
-	public Item(String name) {
+	public Item(String name, String sn) {
 		this.name = name;
 	}
 

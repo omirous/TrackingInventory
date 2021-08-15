@@ -9,12 +9,13 @@ class ItemSpec extends Specification {
 		Item item = new Item()
 	}
 
-	def "item has a name" () {
+	def "item has a name and a serial number" () {
 		given:
 		String name = "name"
+		String sn = "sn"
 
 		when:
-		Item item = new Item(name)
+		Item item = new Item(name, sn)
 
 		then:
 		item.name == name
