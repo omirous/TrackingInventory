@@ -13,7 +13,10 @@ class ItemSpec extends Specification {
 		given:
 		String name = "name"
 
-		expect:
+		when:
 		Item item = new Item(name)
+
+		then:
+		item.name == name
 	}
 }
