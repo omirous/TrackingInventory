@@ -40,7 +40,14 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'inventory.App'
+    mainClass = 'inventory.Main'
+}
+
+run {
+	standardInput = System.in
+
+	//take a look here
+	//https://medium.com/@mglover/running-a-command-line-app-from-gradle-62f88b3f14c2
 }
 
 tasks.named('test') {
