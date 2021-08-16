@@ -51,19 +51,19 @@ public class ItemParser {
 	}
 
 	private Item parseLineToItem() {
-		try {
-			return parseItem();
-		} catch (NumberFormatException e) {
-			errorMessage = "Expected value (3rd token) to be a number but got notANumber instead.";
-			return null;
-		}
-	}
-
-	private Item parseItem() {
 		String name = tokenizer.nextToken();
 		String sn = tokenizer.nextToken();
 		String valueString = tokenizer.nextToken();
-		return new Item(name, sn, new BigDecimal(valueString));
+		return createItem(name, sn, valueString);
+	}
+
+	private Item createItem(String name, String sn, String valueString) {
+		try {
+			return new Item(name, sn, new BigDecimal(valueString));
+		} catch (NumberFormatException e) {
+			errorMessage = String.format("Expected value (3rd token) to be a number but got %s instead.", valueString);
+			return null;
+		}
 	}
 
 	private String message(long numOfDelimeters) {
