@@ -16,7 +16,7 @@ class FileStorageNIOSpec extends Specification {
 	static String STORAGE_FOLDER = "storage"
 	static String FILE = "temp-file.txt"
 
-	static FileStorageNIO storage
+	static FileStorage storage
 
 	def setupSpec() {
 		Files.createFile(filePath())

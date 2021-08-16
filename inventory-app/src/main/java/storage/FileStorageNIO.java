@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-public class FileStorageNIO {
+public class FileStorageNIO implements FileStorage {
 
 	private String filepath;
 
