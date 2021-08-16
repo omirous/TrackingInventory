@@ -66,7 +66,6 @@ class ItemParserSpec extends Specification {
 		item.name == "name"
 		item.serialNumber == "serial"
 		item.value == 1.3
-
 	}
 
 
