@@ -2,6 +2,16 @@ package inventory;
 
 import java.util.Scanner;
 
+/**
+ * Read eval loop in command line for creating {@link Item} objects.
+ *
+ * Each input line represents the data for the item to be created.
+ * The data should be separated by a delimiter(;).
+ * The pattern is "name;serialNumber;value.
+ *
+ * For example:
+ * Playstation 4;PS4;100
+ */
 public class Main {
 
 	public static void main(String[] args) {
@@ -9,14 +19,17 @@ public class Main {
 		ItemParser parser = new ItemParser();
 		prompt();
 		while(scanner.hasNext()) {
-			String line = scanner.nextLine();
-			Item item = parser.parseLine(line);
-			if (item != null)
-				System.out.println("Item parsed");
-			else
-				System.err.println(parser.getErrorMessage());
+			Item item = parser.parseLine(scanner.nextLine());
+			checkErrors(parser, item);
 			prompt();
 		}
+	}
+
+	private static void checkErrors(ItemParser parser, Item item) {
+		if (item != null)
+			System.out.println("Item parsed");
+		else
+			System.err.println(parser.getErrorMessage());
 	}
 
 	private static void prompt() {
