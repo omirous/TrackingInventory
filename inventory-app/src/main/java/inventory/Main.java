@@ -2,6 +2,8 @@ package inventory;
 
 import java.util.Scanner;
 
+import inventory.parse.ItemParser;
+
 /**
  * Read eval loop in command line for creating {@link Item} objects.
  *

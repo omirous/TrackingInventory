@@ -1,6 +1,8 @@
 package inventory;
 
 import java.math.BigDecimal;
+
+import inventory.validate.ItemValidator;
 /**
  * An {@link Item} is a simple object that has a name, a serial number and a
  * numeric value.

@@ -1,4 +1,4 @@
-package inventory;
+package inventory.validate;
 
 /**
  * This Runtime exception is used for indicating invalid Items.

@@ -1,7 +1,9 @@
-package inventory;
+package inventory.parse;
 
 import java.math.BigDecimal;
 import java.util.StringTokenizer;
+
+import inventory.Item;
 
 /**
  * The {@link ItemParser} is responsible for parsing a String to an {@link Item}.

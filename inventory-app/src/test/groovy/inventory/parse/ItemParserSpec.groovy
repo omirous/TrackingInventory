@@ -1,5 +1,7 @@
-package inventory
+package inventory.parse
 
+import inventory.Item
+import inventory.parse.ItemParser
 import spock.lang.Specification
 import spock.lang.Unroll
 

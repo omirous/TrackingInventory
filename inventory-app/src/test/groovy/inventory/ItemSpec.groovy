@@ -1,5 +1,6 @@
 package inventory
 
+import inventory.validate.InvalidItem
 import spock.lang.Specification
 
 class ItemSpec extends Specification {

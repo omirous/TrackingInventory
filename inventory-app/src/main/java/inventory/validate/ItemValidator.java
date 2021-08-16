@@ -1,4 +1,7 @@
-package inventory;
+package inventory.validate;
+
+import inventory.Item;
+
 /**
  * The item validate contains the rules for creating a valid {@link Item}.
  *
