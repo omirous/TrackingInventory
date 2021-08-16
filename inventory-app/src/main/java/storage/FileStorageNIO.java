@@ -6,11 +6,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-public class FileStorage {
+public class FileStorageNIO {
 
 	private String filepath;
 
-	public FileStorage(String filepath) {
+	public FileStorageNIO(String filepath) {
 		this.filepath = filepath;
 	}
 

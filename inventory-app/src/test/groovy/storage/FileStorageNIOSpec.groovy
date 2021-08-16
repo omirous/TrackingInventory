@@ -9,18 +9,18 @@ import spock.lang.Specification
 import spock.lang.Stepwise
 
 @Stepwise
-class FileStorageSpec extends Specification {
+class FileStorageNIOSpec extends Specification {
 
 	static String PROJECT_PATH = "."
 	static String TEST_RESOURCES = "src/test/resources"
 	static String STORAGE_FOLDER = "storage"
 	static String FILE = "temp-file.txt"
 
-	static FileStorage storage
+	static FileStorageNIO storage
 
 	def setupSpec() {
 		Files.createFile(filePath())
-		storage = new FileStorage(filePathString())
+		storage = new FileStorageNIO(filePathString())
 	}
 
 	def "append to file" () {
