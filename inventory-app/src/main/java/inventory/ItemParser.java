@@ -12,11 +12,7 @@ public class ItemParser {
 	public Item parseLine(String line) {
 		try {
 			errorMessage = "";
-			notNullLine(line);
-			notEmptyLine(line);
-			tokenize(line);
-			exactly3Tokens();
-			return parseLineToItem();
+			return doParseLine(line);
 		} catch (Exception e) {
 			errorMessage = e.getMessage();
 			return null;
@@ -25,6 +21,14 @@ public class ItemParser {
 
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+
+	private Item doParseLine(String line) {
+		notNullLine(line);
+		notEmptyLine(line);
+		tokenize(line);
+		exactly3Tokens();
+		return parseLineToItem();
 	}
 
 	private void notNullLine(String line) {
@@ -64,6 +68,15 @@ public class ItemParser {
 
 	private String message(long numOfDelimeters) {
 		return String.format("Expected a line with 3 tokens but got %d instead.", numOfDelimeters);
+	}
+
+	private class InvalidInput extends RuntimeException {
+
+		private static final long serialVersionUID = 1L;
+
+		InvalidInput(String message) {
+			super(message);
+		}
 	}
 
 }
