@@ -13,8 +13,9 @@ public class ItemParser {
 		errorMessage = "";
 		notNullLine(line);
 		notEmptyLine(line);
-		exactly3Tokens(line);
-		return parseLineToItem(line);
+		tokenize(line);
+		exactly3Tokens();
+		return parseLineToItem();
 	}
 
 	public String getErrorMessage() {
@@ -31,22 +32,29 @@ public class ItemParser {
 			throw new InvalidInput("Expected a line with item data but got an empty line instead.");
 	}
 
-	private void exactly3Tokens(String line) {
+	private void tokenize(String line) {
 		tokenizer = new StringTokenizer(line, String.valueOf(DELIMETER));
+	}
+
+	private void exactly3Tokens() {
 		if (tokenizer.countTokens() != 3)
 			throw new InvalidInput(message(tokenizer.countTokens()));
 	}
 
-	private Item parseLineToItem(String line) {
-		String name = tokenizer.nextToken();
-		String sn = tokenizer.nextToken();
-		String valueString = tokenizer.nextToken();
+	private Item parseLineToItem() {
 		try {
-			return new Item(name, sn, new BigDecimal(valueString));
+			return parseItem();
 		} catch (NumberFormatException e) {
 			errorMessage = "Expected value (3rd token) to be a number but got notANumber instead.";
 			return null;
 		}
+	}
+
+	private Item parseItem() {
+		String name = tokenizer.nextToken();
+		String sn = tokenizer.nextToken();
+		String valueString = tokenizer.nextToken();
+		return new Item(name, sn, new BigDecimal(valueString));
 	}
 
 	private String message(long numOfDelimeters) {
