@@ -10,12 +10,17 @@ public class ItemParser {
 	private String errorMessage;
 
 	public Item parseLine(String line) {
-		errorMessage = "";
-		notNullLine(line);
-		notEmptyLine(line);
-		tokenize(line);
-		exactly3Tokens();
-		return parseLineToItem();
+		try {
+			errorMessage = "";
+			notNullLine(line);
+			notEmptyLine(line);
+			tokenize(line);
+			exactly3Tokens();
+			return parseLineToItem();
+		} catch (Exception e) {
+			errorMessage = e.getMessage();
+			return null;
+		}
 	}
 
 	public String getErrorMessage() {

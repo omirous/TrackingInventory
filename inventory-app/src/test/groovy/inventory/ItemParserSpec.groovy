@@ -1,7 +1,5 @@
 package inventory
 
-import spock.lang.Ignore
-import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -18,11 +16,11 @@ class ItemParserSpec extends Specification {
 		String input = null
 
 		when: 'parsing that input to an Item'
-		parser.parseLine(input)
+		Item item = parser.parseLine(input)
 
 		then: 'an InvalidInput expection is thrown'
-		def e = thrown(InvalidInput)
-		e.message == "Expected a line with item data but got null instead."
+		parser.errorMessage == "Expected a line with item data but got null instead."
+		item == null
 	}
 
 	def 'parse an empty line' () {
@@ -30,11 +28,11 @@ class ItemParserSpec extends Specification {
 		String input = ""
 
 		when: 'parsing that input to an Item'
-		parser.parseLine(input)
+		Item item = parser.parseLine(input)
 
 		then: 'an InvalidInput expection is thrown'
-		def e = thrown(InvalidInput)
-		e.message == "Expected a line with item data but got an empty line instead."
+		parser.errorMessage == "Expected a line with item data but got an empty line instead."
+		item == null
 	}
 
 	@Unroll
@@ -43,11 +41,11 @@ class ItemParserSpec extends Specification {
 		String line = input
 
 		when: 'parsing that input to an Item'
-		parser.parseLine(line)
+		Item item = parser.parseLine(line)
 
 		then: 'an InvalidInput expection is thrown'
-		def e = thrown(InvalidInput)
-		e.message == message
+		parser.errorMessage == message
+		item == null
 
 		where:
 		input 				|| message
