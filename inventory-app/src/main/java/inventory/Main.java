@@ -23,6 +23,7 @@ public class Main {
 		while(scanner.hasNext()) {
 			Item item = parser.parseLine(scanner.nextLine());
 			checkErrors(parser, item);
+			item.save();
 			prompt();
 		}
 	}

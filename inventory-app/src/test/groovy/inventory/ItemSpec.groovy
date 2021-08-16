@@ -1,7 +1,10 @@
 package inventory
 
+import java.nio.file.FileStore
+
 import inventory.validate.InvalidItem
 import spock.lang.Specification
+import storage.FileStorage
 
 class ItemSpec extends Specification {
 
@@ -63,6 +66,23 @@ class ItemSpec extends Specification {
 		then: 'an InvalidItem exception is thrown'
 		def e = thrown(InvalidItem)
 		e.message == 'Expected an item with a value but got null value instead.'
+	}
+
+	def "save an Item" () {
+		given:
+		String name = "name"
+		String sn = "sn"
+		BigDecimal value = BigDecimal.ZERO
+		Item item = new Item(name, sn, value)
+		FileStorage myStorage = Mock()
+		item.storage = myStorage
+
+		when: 'saving an item'
+		item.save()
+
+		then: "FileStorage appendLine is called"
+		1 * myStorage.appendLine("name;sn;0")
+
 	}
 
 

@@ -1,8 +1,12 @@
 package inventory;
 
 import java.math.BigDecimal;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import inventory.validate.ItemValidator;
+import storage.FileStorage;
+import storage.FileStorageNIO;
 /**
  * An {@link Item} is a simple object that has a name, a serial number and a
  * numeric value.
@@ -15,6 +19,7 @@ public class Item {
 	private String serialNumber;
 	private BigDecimal value;
 	private ItemValidator validator;
+	private FileStorage storage;
 
 	/**
 	 * Create a new {@link Item} using a name, a serial number and a value.
@@ -28,6 +33,10 @@ public class Item {
 		this.serialNumber = serialNumber;
 		this.value = value;
 		validator = new ItemValidator();
+		Path projectPath = Paths.get(".");
+		String projectPathString = projectPath.toAbsolutePath().toString();
+		String resources = "src/main/resources/storage/items.txt";
+		storage = new FileStorageNIO(Paths.get(projectPathString, resources).toAbsolutePath().toString());
 		validate();
 	}
 
@@ -47,6 +56,10 @@ public class Item {
 	 */
 	public String getSerialNumber() {
 		return serialNumber;
+	}
+
+	public void save() {
+		storage.appendLine(String.format("%s;%s;%s", getName(), getSerialNumber(), getValue()));
 	}
 
 	/**
