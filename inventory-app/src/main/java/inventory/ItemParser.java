@@ -6,11 +6,12 @@ import java.util.StringTokenizer;
 public class ItemParser {
 
 	private static final char DELIMETER = ';';
+	private StringTokenizer tokenizer;
 
 	public Item parseLine(String line) {
 		notNullLine(line);
 		notEmptyLine(line);
-		lineContainsExactly2Delimeters(line);
+		exactly3Tokens(line);
 		return parseLineToItem(line);
 	}
 
@@ -24,25 +25,21 @@ public class ItemParser {
 			throw new InvalidInput("Expected a line with item data but got an empty line instead.");
 	}
 
-	private void lineContainsExactly2Delimeters(String line) {
-		if (countDelimeters(line) != 2)
-			throw new InvalidInput(message(countDelimeters(line)));
+	private void exactly3Tokens(String line) {
+		tokenizer = new StringTokenizer(line, String.valueOf(DELIMETER));
+		if (tokenizer.countTokens() != 3)
+			throw new InvalidInput(message(tokenizer.countTokens()));
 	}
 
 	private Item parseLineToItem(String line) {
-		StringTokenizer tokenizer = new StringTokenizer(line, String.valueOf(DELIMETER));
 		String name = tokenizer.nextToken();
 		String sn = tokenizer.nextToken();
 		String valueString = tokenizer.nextToken();
 		return new Item(name, sn, new BigDecimal(valueString));
 	}
 
-	private long countDelimeters(String line) {
-		return line.codePoints().filter(c -> c == DELIMETER).count();
-	}
-
 	private String message(long numOfDelimeters) {
-		return String.format("Expected a line with 2 delimeters but got %d instead.", numOfDelimeters);
+		return String.format("Expected a line with 3 tokens but got %d instead.", numOfDelimeters);
 	}
 
 }

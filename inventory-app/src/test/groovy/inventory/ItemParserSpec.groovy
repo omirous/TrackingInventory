@@ -1,5 +1,7 @@
 package inventory
 
+import spock.lang.Ignore
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -36,7 +38,7 @@ class ItemParserSpec extends Specification {
 	}
 
 	@Unroll
-	def "parse a line with #num delimeters" () {
+	def "a line without 3 tokens is invalid - #input" () {
 		given:
 		String line = input
 
@@ -48,11 +50,12 @@ class ItemParserSpec extends Specification {
 		e.message == message
 
 		where:
-		input 				| num 	|| message
-		"no delimeters"		| 0		|| "Expected a line with 2 delimeters but got 0 instead."
-		"name;sn"			| 1		|| "Expected a line with 2 delimeters but got 1 instead."
-		"name;sn;;"			| 3		|| "Expected a line with 2 delimeters but got 3 instead."
-		"name;sn;1;2;3"		| 4		|| "Expected a line with 2 delimeters but got 4 instead."
+		input 				|| message
+		"no delimeters"		|| "Expected a line with 3 tokens but got 1 instead."
+		"name;sn"			|| "Expected a line with 3 tokens but got 2 instead."
+		"name;sn;;"			|| "Expected a line with 3 tokens but got 2 instead."
+		"name;sn;1;2;3"		|| "Expected a line with 3 tokens but got 5 instead."
+		";serial;1.3"		|| "Expected a line with 3 tokens but got 2 instead."
 	}
 
 	def "parse an item" () {
@@ -67,6 +70,8 @@ class ItemParserSpec extends Specification {
 		item.serialNumber == "serial"
 		item.value == 1.3
 	}
+
+	//value must be a number
 
 
 }
