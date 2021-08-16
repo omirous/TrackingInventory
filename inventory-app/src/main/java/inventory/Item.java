@@ -1,7 +1,12 @@
 package inventory;
 
 import java.math.BigDecimal;
-
+/**
+ * An {@link Item} is a simple object that has a name, a serial number and a
+ * numeric value.
+ *
+ * The design choice was not to provide setters for this object.
+ */
 public class Item {
 
 	private String name;
@@ -22,10 +27,6 @@ public class Item {
 		this.value = value;
 		validator = new ItemValidator();
 		validate();
-	}
-
-	private void validate() {
-		validator.validate(this);
 	}
 
 	/**
@@ -53,6 +54,10 @@ public class Item {
 	 */
 	public BigDecimal getValue() {
 		return value;
+	}
+
+	private void validate() {
+		validator.validate(this);
 	}
 
 
