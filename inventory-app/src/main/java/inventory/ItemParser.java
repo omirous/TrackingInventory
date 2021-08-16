@@ -3,12 +3,33 @@ package inventory;
 import java.math.BigDecimal;
 import java.util.StringTokenizer;
 
+/**
+ * The {@link ItemParser} is responsible for parsing a String to an {@link Item}.
+ *
+ * The String line contains the {@link Item} properties (name, serial number, value)
+ * separated by a delimiter, in that order.
+ *
+ * The {@link ItemParser} will also perform validation on the String line, before
+ * parsing it to an {@link Item}.
+ *
+ * Design decision: This class does not throw exception because it is going to
+ * be used by a read eval loop on command line. It uses a very primitive version
+ * of the Notification pattern. In case the Item cannot be parsed, the returned
+ * {@link Item} is null and a method for getting to error message is provided
+ * (getErrorMessage).
+ */
 public class ItemParser {
 
 	private static final char DELIMETER = ';';
 	private StringTokenizer tokenizer;
 	private String errorMessage;
 
+	/**
+	 * Parse a String line containing the {@link Item} data to an {@link Item} object.
+	 *
+	 * @param line A String containing the item data separated by delimiters.
+	 * @return Parsed {@link Item}
+	 */
 	public Item parseLine(String line) {
 		try {
 			errorMessage = "";
@@ -19,6 +40,11 @@ public class ItemParser {
 		}
 	}
 
+	/**
+	 * Get the error message in case there is a problem parsing the {@link Item}.
+	 *
+	 * @return String containing the error description.
+	 */
 	public String getErrorMessage() {
 		return errorMessage;
 	}
