@@ -37,7 +37,7 @@ public class Main {
 	}
 
 	private static String message() {
-		return "Enter the data for an item, separated by delimeters (;)";
+		return String.format("Enter the data for an item, separated by delimiters (%s)", ItemParser.DELIMITER);
 	}
 
 }

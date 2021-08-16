@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  */
 public class ItemParser {
 
-	private static final char DELIMETER = ';';
+	public static final char DELIMITER = ';';
 	private StringTokenizer tokenizer;
 	private String errorMessage;
 
@@ -68,7 +68,7 @@ public class ItemParser {
 	}
 
 	private void tokenize(String line) {
-		tokenizer = new StringTokenizer(line, String.valueOf(DELIMETER));
+		tokenizer = new StringTokenizer(line, String.valueOf(DELIMITER));
 	}
 
 	private void exactly3Tokens() {
