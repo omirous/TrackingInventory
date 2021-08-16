@@ -71,7 +71,16 @@ class ItemParserSpec extends Specification {
 		item.value == 1.3
 	}
 
-	//value must be a number
+	def "value is not a number" () {
+		given:
+		String line = "name;serial;notANumber"
 
+		when: 'parsing that input to an Item'
+		Item item = parser.parseLine(line)
+
+		then:
+		item == null
+		parser.errorMessage == "Expected value (3rd token) to be a number but got notANumber instead."
+	}
 
 }
