@@ -1,9 +1,29 @@
 package inventory;
-
+/**
+ * The item validate contains the rules for creating a valid {@link Item}.
+ *
+ *  Those are:
+ *
+ *  <ul>
+ *  <li> The name cannot be null.</li>
+ *  <li> The name cannot be an empty string. </li>
+ *  <li> The serial number cannot be null.</li>
+ *  <li> The serial number cannot be an empty string. </li>
+ *  <li> The value cannot be null. </li>
+ *  </ul>
+ */
 public class ItemValidator {
 
 	private Item item;
 
+	/**
+	 * Check if an {@link Item} is valid.
+	 * A runtime exception with an explanation message will be thrown in case
+	 * the item is not valid.
+	 *
+	 * @param item The item to be checked.
+	 * @throws InvalidItem if the item is not valid
+	 */
 	public void validate(Item item) {
 		this.item = item;
 		nameNotNull();
