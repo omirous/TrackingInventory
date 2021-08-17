@@ -41,7 +41,7 @@ public class Item {
 	 * No default {@link FileStorage} implementation is provided by this class. It
 	 * is necessary to set one before calling the save method.
 	 *
-	 * @param storage
+	 * @param storage The storage that will be used during save method.
 	 */
 	public void setStorage(FileStorage storage) {
 		this.storage = storage;
