@@ -11,44 +11,70 @@ import inventory.Item;
 
 public class ItemJsonFormatter {
 
+	private static final String NAME_PROPERTY = "name";
+	private static final String SERIAL_NUMBER_PROPERTY = "sn";
+	private static final String VALUE_PROPERTY = "value";
+
 	public String toJson(Item item) {
 		return String.format(template(), item.getName(), item.getSerialNumber(), item.getValue());
 	}
 
 	public Item toItem(String json) {
+		Map<String, String> map = jsonMap(json);
+		return new Item(
+				map.get(NAME_PROPERTY),
+				map.get(SERIAL_NUMBER_PROPERTY),
+				new BigDecimal(map.get(VALUE_PROPERTY))
+			);
+	}
+
+	private Map<String, String> jsonMap(String json) {
 		Map<String, String> map = new HashMap<String, String>();
+		for (String property : properties(json))
+			propertyToMap(property, map);
 
-		String jsonWithoutBrackets = json.trim().substring(1);
-		jsonWithoutBrackets = jsonWithoutBrackets.trim().substring(0, jsonWithoutBrackets.length() - 2).trim();
+		return map;
+	}
 
-		StringTokenizer commaTokenizer = new StringTokenizer(jsonWithoutBrackets, ",");
+	private void propertyToMap(String property, Map<String, String> map) {
+		StringTokenizer colonTokenizer = new StringTokenizer(property, ":");
+		String keyWithQuotes = colonTokenizer.nextToken().trim();
+		String valueWithQuotes = colonTokenizer.nextToken().trim();
+		map.put(removeQuotes(keyWithQuotes), removeQuotes(valueWithQuotes));
+	}
 
+	private List<String> properties(String json) {
+		StringTokenizer commaTokenizer = new StringTokenizer(removeBrackets(json), ",");
 		List<String> properties = new ArrayList<String>();
 		while (commaTokenizer.hasMoreTokens())
 			properties.add(commaTokenizer.nextToken());
 
-		for (String property : properties) {
-			StringTokenizer colonTokenizer = new StringTokenizer(property, ":");
-			String keyWithQuotes = colonTokenizer.nextToken().trim();
-			String valueWithQuotes = colonTokenizer.nextToken().trim();
-			String key = removeQuotes(keyWithQuotes);
-			String value = removeQuotes(valueWithQuotes);
-			map.put(key, value);
-		}
+		return properties;
+	}
 
-		return new Item(map.get("name"), map.get("sn"), new BigDecimal(map.get("value")));
+	private String removeBrackets(String json) {
+		String jsonWithoutBrackets = json.trim().substring(1);
+		jsonWithoutBrackets = jsonWithoutBrackets.trim().substring(0, jsonWithoutBrackets.length() - 2).trim();
+		return jsonWithoutBrackets;
 	}
 
 	private String removeQuotes(String valueWithQuotes) {
 		String value = valueWithQuotes;
 		if (valueWithQuotes.startsWith("\""))
 			value = valueWithQuotes.substring(1);
+
 		if (valueWithQuotes.endsWith("\""))
 			value = value.substring(0, value.length() - 1);
+
 		return value;
 	}
 
 	private String template() {
-		return "{ \"name\": \"%s\", \"sn\": \"%s\", \"value\": %s }";
+		return String.format(
+					"{ \"%s\": \"%%s\", \"%s\": \"%%s\", \"%s\": %%s }",
+					NAME_PROPERTY,
+					SERIAL_NUMBER_PROPERTY,
+					VALUE_PROPERTY
+				);
 	}
 }
