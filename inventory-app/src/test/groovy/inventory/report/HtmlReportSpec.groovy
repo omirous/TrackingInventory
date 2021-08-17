@@ -1,4 +1,4 @@
-package inventory.reports
+package inventory.report
 
 import inventory.Item
 import inventory.report.HtmlReport
