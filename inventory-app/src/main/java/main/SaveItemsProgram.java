@@ -19,7 +19,6 @@ import storage.FileStorageNIO;
  */
 public class SaveItemsProgram {
 
-	static final String FILE_PATH = "src/main/resources/storage/items.txt";
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -36,13 +35,7 @@ public class SaveItemsProgram {
 	}
 
 	private static FileStorageNIO createFileStorage() {
-		return new FileStorageNIO(createFilePath().toAbsolutePath().toString());
-	}
-
-	private static Path createFilePath() {
-		Path projectPath = Paths.get(".");
-		String projectPathString = projectPath.toAbsolutePath().toString();
-		return Paths.get(projectPathString, FILE_PATH);
+		return new FileStorageNIO(Configuration.createFilePath().toAbsolutePath().toString());
 	}
 
 	private static void checkErrors(ItemParser parser, Item item) {
