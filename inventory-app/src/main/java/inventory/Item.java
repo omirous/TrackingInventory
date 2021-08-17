@@ -1,12 +1,10 @@
 package inventory;
 
 import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import inventory.validate.ItemValidator;
 import storage.FileStorage;
-import storage.FileStorageNIO;
+
 /**
  * An {@link Item} is a simple object that has a name, a serial number and a
  * numeric value.
@@ -25,7 +23,7 @@ public class Item {
 	 * Create a new {@link Item} using a name, a serial number and a value.
 	 *
 	 * @param name         The name of the item.
-	 * @param serialNumber The serial number of the item
+	 * @param serialNumber The serial number of the item.
 	 * @param value        The value of the item.
 	 */
 	public Item(String name, String serialNumber, BigDecimal value) {
@@ -33,11 +31,20 @@ public class Item {
 		this.serialNumber = serialNumber;
 		this.value = value;
 		validator = new ItemValidator();
-		Path projectPath = Paths.get(".");
-		String projectPathString = projectPath.toAbsolutePath().toString();
-		String resources = "src/main/resources/storage/items.txt";
-		storage = new FileStorageNIO(Paths.get(projectPathString, resources).toAbsolutePath().toString());
 		validate();
+	}
+
+	/**
+	 * In case you need to save an Item, you need to provide a {@link FileStorage}
+	 * implementation.
+	 *
+	 * No default {@link FileStorage} implementation is provided by this class. It
+	 * is necessary to set one before calling the save method.
+	 *
+	 * @param storage
+	 */
+	public void setStorage(FileStorage storage) {
+		this.storage = storage;
 	}
 
 	/**
@@ -74,6 +81,5 @@ public class Item {
 	private void validate() {
 		validator.validate(this);
 	}
-
 
 }
