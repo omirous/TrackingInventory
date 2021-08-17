@@ -1,9 +1,10 @@
-package inventory;
+package main;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import inventory.Item;
 import inventory.parse.ItemParser;
 import storage.FileStorageNIO;
 
@@ -16,7 +17,7 @@ import storage.FileStorageNIO;
  *
  * For example: Playstation 4;PS4;100
  */
-public class Main {
+public class SaveItemsProgram {
 
 	static final String FILE_PATH = "src/main/resources/storage/items.txt";
 
