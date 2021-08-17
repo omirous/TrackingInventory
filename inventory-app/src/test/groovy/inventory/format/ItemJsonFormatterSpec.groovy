@@ -13,7 +13,7 @@ class ItemJsonFormatterSpec extends Specification {
 		ItemJsonFormatter formatter = new ItemJsonFormatter()
 
 		when: 'converting to json'
-		String jsonString = formatter.toJson(item)
+		String jsonString = formatter.toText(item)
 
 		then:
 		jsonString == result
@@ -32,7 +32,7 @@ class ItemJsonFormatterSpec extends Specification {
 		when: 'converting to item'
 		Item item = formatter.toItem(json)
 
-		then:
+		then: 'item has the appropriate properties'
 		item.name == "name"
 		item.serialNumber == "sn"
 		item.value == 1.2

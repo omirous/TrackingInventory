@@ -9,13 +9,16 @@ import java.util.StringTokenizer;
 
 import inventory.Item;
 
-public class ItemJsonFormatter {
+/**
+ * Naive json implementation of {@link ItemFormatter}.
+ */
+public class ItemJsonFormatter implements ItemFormatter {
 
 	private static final String NAME_PROPERTY = "name";
 	private static final String SERIAL_NUMBER_PROPERTY = "sn";
 	private static final String VALUE_PROPERTY = "value";
 
-	public String toJson(Item item) {
+	public String toText(Item item) {
 		return String.format(template(), item.getName(), item.getSerialNumber(), item.getValue());
 	}
 
