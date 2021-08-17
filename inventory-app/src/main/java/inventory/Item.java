@@ -2,6 +2,8 @@ package inventory;
 
 import java.math.BigDecimal;
 
+import inventory.format.ItemFormatter;
+import inventory.format.ItemJsonFormatter;
 import inventory.validate.ItemValidator;
 import storage.FileStorage;
 
@@ -18,9 +20,13 @@ public class Item {
 	private BigDecimal value;
 	private ItemValidator validator;
 	private FileStorage storage;
+	private ItemFormatter formatter;
 
 	/**
 	 * Create a new {@link Item} using a name, a serial number and a value.
+	 *
+	 * The default {@link ItemFormatter} is a {@link ItemJsonFormatter}. It is
+	 * used during the save method.
 	 *
 	 * @param name         The name of the item.
 	 * @param serialNumber The serial number of the item.
@@ -31,6 +37,7 @@ public class Item {
 		this.serialNumber = serialNumber;
 		this.value = value;
 		validator = new ItemValidator();
+		formatter = new ItemJsonFormatter();
 		validate();
 	}
 
@@ -45,6 +52,15 @@ public class Item {
 	 */
 	public void setStorage(FileStorage storage) {
 		this.storage = storage;
+	}
+
+	/**
+	 * Override the default {@link ItemFormatter} that will be used during save.
+	 *
+	 * @param formatter The new {@link ItemFormatter}.
+	 */
+	public void setItemFormatter(ItemFormatter formatter) {
+		this.formatter = formatter;
 	}
 
 	/**
@@ -66,7 +82,8 @@ public class Item {
 	}
 
 	public void save() {
-		storage.appendLine(String.format("%s;%s;%s", getName(), getSerialNumber(), getValue()));
+		String text = formatter.toText(this);
+		storage.appendLine(text);
 	}
 
 	/**

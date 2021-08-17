@@ -2,6 +2,7 @@ package inventory
 
 import java.nio.file.FileStore
 
+import inventory.format.ItemFormatter
 import inventory.validate.InvalidItem
 import spock.lang.Specification
 import storage.FileStorage
@@ -69,19 +70,26 @@ class ItemSpec extends Specification {
 	}
 
 	def "save an Item" () {
-		given:
+		given: 'an item'
 		String name = "name"
 		String sn = "sn"
 		BigDecimal value = BigDecimal.ZERO
 		Item item = new Item(name, sn, value)
+
+		and: 'a file storage for the item'
 		FileStorage myStorage = Mock()
 		item.storage = myStorage
+
+		and: 'an item formatter'
+		ItemFormatter myItemFormatter = Mock()
+		item.formatter = myItemFormatter
 
 		when: 'saving an item'
 		item.save()
 
 		then: "FileStorage appendLine is called"
-		1 * myStorage.appendLine("name;sn;0")
+		1 * myItemFormatter.toText(item) >> {"name#sn#30"}
+		1 * myStorage.appendLine("name#sn#30")
 
 	}
 
