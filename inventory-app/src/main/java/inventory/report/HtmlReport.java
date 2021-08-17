@@ -47,8 +47,6 @@ public class HtmlReport {
 		return items
 				.stream()
 				.map(i -> row(i))
-				.collect(Collectors.toList())
-				.stream()
 				.collect(Collectors.joining("\n"));
 	}
 
