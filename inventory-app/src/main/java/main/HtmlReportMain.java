@@ -9,8 +9,10 @@ import inventory.format.ItemJsonFormatter;
 import inventory.report.HtmlReport;
 import storage.FileStorage;
 import storage.FileStorageNIO;
-
-public class HtmlReportProgram {
+/**
+ * Produce the content of an html report containing items stored in a file.
+ */
+public class HtmlReportMain {
 	public static void main(String[] args) {
 		FileStorage storage = new FileStorageNIO(Configuration.createFilePathString());
 		ItemFormatter formatter = new ItemJsonFormatter();

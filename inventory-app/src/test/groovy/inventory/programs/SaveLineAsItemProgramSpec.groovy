@@ -1,6 +1,5 @@
 package inventory.programs
 
-import main.SaveLineAsItemProgram
 import spock.lang.Specification
 import storage.FileStorage
 

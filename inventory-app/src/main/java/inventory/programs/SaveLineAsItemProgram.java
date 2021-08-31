@@ -1,4 +1,4 @@
-package main;
+package inventory.programs;
 
 import inventory.Item;
 import inventory.parse.ItemParser;

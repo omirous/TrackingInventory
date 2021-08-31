@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import inventory.Item;
 import inventory.parse.ItemParser;
+import inventory.programs.SaveLineAsItemProgram;
 import storage.FileStorage;
 import storage.FileStorageNIO;
 
