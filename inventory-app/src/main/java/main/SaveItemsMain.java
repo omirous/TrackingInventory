@@ -1,11 +1,10 @@
 package main;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import inventory.Item;
 import inventory.parse.ItemParser;
+import storage.FileStorage;
 import storage.FileStorageNIO;
 
 /**
@@ -17,32 +16,24 @@ import storage.FileStorageNIO;
  *
  * For example: Playstation 4;PS4;100
  */
-public class SaveItemsProgram {
-
+public class SaveItemsMain {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		ItemParser parser = new ItemParser();
-		FileStorageNIO storage = createFileStorage();
+		SaveLineAsItemProgram program = new SaveLineAsItemProgram(createFileStorage());
 		prompt();
 		while (scanner.hasNext()) {
-			Item item = parser.parseLine(scanner.nextLine());
-			checkErrors(parser, item);
-			item.setStorage(storage);
-			item.save();
+			program.saveLineToItem(scanner.nextLine());
+			if (program.hasErrors())
+				System.err.println(program.getErrorMessage());
+			else
+				System.out.println("Item saved.");
 			prompt();
 		}
 	}
 
-	private static FileStorageNIO createFileStorage() {
-		return new FileStorageNIO(Configuration.createFilePath().toAbsolutePath().toString());
-	}
-
-	private static void checkErrors(ItemParser parser, Item item) {
-		if (item != null)
-			System.out.println("Item saved.");
-		else
-			System.err.println(parser.getErrorMessage());
+	private static FileStorage createFileStorage() {
+		return new FileStorageNIO(Configuration.createFilePathString());
 	}
 
 	private static void prompt() {

@@ -12,7 +12,7 @@ import storage.FileStorageNIO;
 
 public class HtmlReportProgram {
 	public static void main(String[] args) {
-		FileStorage storage = new FileStorageNIO(Configuration.createFilePath().toAbsolutePath().toString());
+		FileStorage storage = new FileStorageNIO(Configuration.createFilePathString());
 		ItemFormatter formatter = new ItemJsonFormatter();
 		List<Item> items = new ArrayList<Item>();
 		for (String itemString : storage.readLines())
@@ -20,4 +20,5 @@ public class HtmlReportProgram {
 
 		System.out.println(new HtmlReport(items).produce());
 	}
+
 }
